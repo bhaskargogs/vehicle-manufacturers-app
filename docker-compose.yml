@@ -1,0 +1,50 @@
+version: "3.7"
+
+networks:
+  test-net:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    networks:
+      - test-net
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=testdb
+    ports:
+      - 5432:5432
+    restart: always
+
+  postgres-ui:
+    image: dpage/pgadmin4:latest
+    container_name: postgres-ui
+    networks:
+      - test-net
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 5400:80
+    restart: always
+    depends_on:
+      - postgres
+
+
+  server:
+    container_name: vehicle-manufacturers-server
+    networks:
+      - test-net
+    build:
+      context: ./vehicle-manufacturers-server
+      args:
+        JAR_FILE: build/libs/*.jar
+        DEPLOYMENT_ENV: local
+    ports:
+      - 8081:8081
+    restart: always
+    depends_on:
+      - postgres
+      - postgres-ui
