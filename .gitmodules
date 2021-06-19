@@ -1,0 +1,4 @@
+[submodule "vehicle-manufacturers-server"]
+	path = vehicle-manufacturers-server
+	url = git@github.com:bhaskargogs/vehicle-manufacturers-server.git
+	branch = main
