@@ -2,3 +2,7 @@
 	path = vehicle-manufacturers-server
 	url = git@github.com:bhaskargogs/vehicle-manufacturers-server.git
 	branch = main
+[submodule "vehicle-manufacturers-client"]
+	path = vehicle-manufacturers-client
+	url = git@github.com:bhaskargogs/vehicle-manufacturers-client.git
+	branch = main
